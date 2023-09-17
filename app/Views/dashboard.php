@@ -76,13 +76,13 @@
     border-radius: 50%;
     object-fit: cover;
     margin-right: 20px;
-    border: 4px solid #fff; /* Add a white border around the image */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
-    transition: transform 0.2s ease-in-out; /* Add a smooth hover effect */
+    border: 4px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
 }
 
 .profile-image:hover {
-    transform: scale(1.1); /* Enlarge the image slightly on hover */
+    transform: scale(1.1);
 }
     </style>
 </head>
@@ -107,7 +107,6 @@
             <li><a href="#">Profile</a></li>
             <li><a href="<?= base_url('public/search_result') ?>">Search</a></li>
         </ul>
-        <!-- Add more dashboard elements here -->
     </div>
 </body>
 </html>

@@ -22,8 +22,8 @@
             border-radius: 5px;
             box-shadow: 0px 0px 10px 2px #888888;
             text-align: center;
-            max-width: 400px; /* Added max-width to limit container width */
-            width: 100%; /* Make container responsive */
+            max-width: 400px;
+            width: 100%;
         }
 
         .login-container h2 {
@@ -32,7 +32,7 @@
         }
 
         .form-group {
-            margin-bottom: 15px; /* Adjusted margin for spacing */
+            margin-bottom: 15px
         }
 
         .form-group label {
@@ -64,6 +64,11 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
+        <?php if (session()->has('error')): ?>
+            <div class="alert alert-danger">
+                <?= session('error') ?>
+            </div>
+        <?php endif; ?>
         <form action="<?php echo base_url('public/authentication');?>" method="POST">
             <div class="form-group">
                 <label for="email">Email:</label>
@@ -77,4 +82,10 @@
         </form>
     </div>
 </body>
+<!-- CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<!-- JavaScript (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
 </html>
