@@ -59,15 +59,15 @@
         <input type='hidden' name="is_registeration_process" value='yes'>
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" autocomplete="off" required>
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" autocomplete="off" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" autocomplete="off" required>
             </div>
             <div class="form-group">
                 <label for="profilePhoto">Profile Photo (optional):</label>
@@ -79,58 +79,58 @@
     </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<!-- JavaScript (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script>
    $(document).ready(function () {
     $('#registrationForm').submit(function (e) {
-        e.preventDefault(); // Prevent the default form submission
-
-        // Serialize the form data using jQuery
+        e.preventDefault();
         const formData = new FormData(this);
-
-        // Get the selected file
         const fileInput = document.getElementById("profilePhoto");
         const file = fileInput.files[0];
-
-        // Check if a file is selected
-        if (file) {
-            // Get the file extension
+        // Doing validation to accept only jpg, jpeg, or png files
+                if (file) {
             const fileName = file.name;
             const fileExtension = fileName.split(".").pop().toLowerCase();
-
-            // Check if the file extension is not jpg, jpeg, or png
+            const maxSizeInBytes = 800 * 1024; // 800 KB
+            //if the file size is more than 800 kb we will show file size error
+            if (file.size > maxSizeInBytes) {
+                $('#fileError').text("File size exceeds the maximum allowed (800 KB). Please select a smaller file.");
+                return;
+            }
+        //else proceeding with validation of file type
             if (fileExtension !== "jpg" && fileExtension !== "jpeg" && fileExtension !== "png") {
-                // Display an error message
                 $('#fileError').text("Invalid file format. Please select a JPG, JPEG, or PNG file.");
-                return; // Exit the function, preventing form submission
+                return;
             }
         }
 
-        // Clear any previous error message
         $('#fileError').text("");
-
         $.ajax({
             type: 'POST',
             url: '<?php echo base_url('public/registration'); ?>',
             data: formData,
-            contentType: false, // Ensure that jQuery doesn't process the data
-            processData: false, // Prevent jQuery from transforming the data
+            contentType: false,
+            processData: false,
             success: function (response) {
-                // Example: Display a success message
+                //on response status as false we will show the alert message.
                 if (!response.status) {
                     alert(response.message);
                 } else {
+                    //on success we will redirect the user to profile page.
                     window.location.href = '<?php echo base_url('public/login'); ?>';
                 }
             },
             error: function (error) {
-                // Handle errors here
+                //on error response will be shown on console.
                 console.error(error);
             }
         });
     });
 });
-
-
 </script>
 </body>
 </html>
